@@ -240,7 +240,7 @@ jobs:
             io.artifacthub.package.logo-url=https://avatars.githubusercontent.com/u/1728152?s=200&v=4
 
       - name: Retrieve Signing Key
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'merge_group'
+        if: github.event_name == 'schedule' || github.event_name == 'merge_group'
         shell: bash
         run: |
           mkdir -p certs
@@ -248,11 +248,11 @@ jobs:
             echo "This should not have run... exiting..."
             exit 1
           else
-            # echo "${{ secrets.KERNEL_PRIVKEY }}" > certs/private_key.priv
-            # echo "${{ secrets.AKMOD_PRIVKEY_20230518 }}" > certs/private_key_2.priv
+            echo "${{ secrets.KERNEL_PRIVKEY }}" > certs/private_key.priv
+            echo "${{ secrets.AKMOD_PRIVKEY_20230518 }}" > certs/private_key_2.priv
             # DEBUG: get character count of key
-            # wc -c certs/private_key.priv
-            # wc -c certs/private_key_2.priv
+            wc -c certs/private_key.priv
+            wc -c certs/private_key_2.priv
           fi
 
       - name: Build Image
